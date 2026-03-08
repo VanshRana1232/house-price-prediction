@@ -1,190 +1,106 @@
-# House Price Prediction (Machine Learning Project)
+# House Price Prediction
 
-A machine learning pipeline that predicts California housing prices using Scikit-Learn.
-
-This project demonstrates the complete workflow of a real-world machine learning project including:
-
-* Data loading
-* Data exploration
-* Data preprocessing
-* Feature engineering
-* Data cleaning
-* Building ML pipelines
-* Training and evaluating a model
-
-The project is implemented using **Python**, **Scikit-Learn**, **Pandas**, and **NumPy** inside a Jupyter Notebook.
+A machine learning project that predicts California housing prices using the classic California Housing dataset. Built with scikit-learn, this project walks through the full ML pipeline — from data loading and exploration to preprocessing, feature engineering, and model training.
 
 ---
 
-## Project Objective
+## Project Overview
 
-The goal of this project is to predict the **median house value** based on various housing features such as:
+This project is based on the hands-on ML workflow from *Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow* by Aurélien Géron. It covers:
 
-* Median income
-* Total rooms
-* Population
-* Number of households
-* Housing location attributes
-
-The project also focuses on building a **robust preprocessing pipeline** that can automatically prepare raw data for machine learning models.
+- Exploratory data analysis (EDA)
+- Stratified train/test splitting
+- Custom feature engineering
+- Full preprocessing pipeline with scikit-learn
+- Comparing multiple regression models
 
 ---
 
 ## Dataset
 
-The dataset used in this project is the **California Housing Dataset**.
-
-It contains information about housing blocks including:
-
-* longitude
-* latitude
-* housing_median_age
-* total_rooms
-* total_bedrooms
-* population
-* households
-* median_income
-* ocean_proximity
-* median_house_value (target variable)
-
-Source:
-https://github.com/ageron/data
-
----
-
-## Technologies Used
-
-* Python
-* Jupyter Notebook
-* Pandas
-* NumPy
-* Scikit-Learn
-* Matplotlib
-
----
-
-## Machine Learning Workflow
-
-### 1. Data Loading
-
-The dataset is downloaded and loaded into a Pandas DataFrame.
-
-### 2. Data Exploration
-
-Initial exploration is done using:
-
-* `head()`
-* `info()`
-* correlation analysis
-
-This helps understand feature distributions and relationships.
-
-### 3. Train-Test Split
-
-The dataset is split into training and testing sets using:
-
-* Random sampling
-* Stratified sampling based on income categories
-
-This ensures the test set represents the data properly.
-
-### 4. Feature Engineering
-
-New useful features are created such as:
-
-* `rooms_per_house`
-* `bedrooms_ratio`
-* `people_per_house`
-
-These derived features help improve model performance.
-
-### 5. Data Cleaning
-
-Missing values are handled using:
-
-`SimpleImputer(strategy="median")`
-
-### 6. Feature Scaling
-
-Numeric features are scaled using:
-
-`StandardScaler()`
-
-### 7. Machine Learning Pipeline
-
-A preprocessing pipeline is built using:
-
-`Pipeline` and `ColumnTransformer`
-
-This automates the entire preprocessing step.
-
-### 8. Model Training
-
-A **Linear Regression model** is trained using the processed dataset.
-
-### 9. Predictions
-
-The trained model predicts house prices on sample data.
-
----
-
-## Example Prediction
-
+The dataset used is the **California Housing Dataset** sourced from:
 ```
-Predicted house values:
-[205000, 180000, 340000, ...]
+https://github.com/ageron/data/raw/main/housing.tgz
 ```
+It contains **20,640 districts** across California with features like median income, house age, population, and geographic coordinates.
+
+| Feature | Description |
+|---|---|
+| `longitude` / `latitude` | Geographic location |
+| `housing_median_age` | Median age of houses |
+| `total_rooms` / `total_bedrooms` | Rooms per district |
+| `population` / `households` | People per district |
+| `median_income` | Median income (in $10,000s) |
+| `ocean_proximity` | Categorical location label |
+| `median_house_value` | **Target variable** |
 
 ---
 
-## How to Run the Project
+## Tech Stack
 
-1. Clone the repository
+- Python 3.10+
+- pandas, numpy, matplotlib
+- scikit-learn
 
-```
+---
+
+## ML Pipeline
+
+The preprocessing pipeline handles:
+
+- **Imputation** — fills missing values with median
+- **Feature Engineering** — adds `rooms_per_house`, `bedrooms_ratio`, `people_per_house`
+- **Log Transformation** — applied to heavy-tailed features
+- **Cluster Similarity** — uses KMeans to encode geographic proximity
+- **Scaling** — StandardScaler on all numeric features
+- **One-Hot Encoding** — for `ocean_proximity`
+
+---
+
+## Models & Results
+
+| Model | Training RMSE |
+|---|---|
+| Linear Regression | ~$68,000 |
+| Decision Tree | ~$0 (overfits) |
+| Random Forest | ~$17,000 ✅ |
+
+> RMSE = Root Mean Squared Error — lower is better. Random Forest performs best on this dataset.
+
+---
+
+## How to Run
+
+### Option 1 — Google Colab (Recommended)
+1. Open [colab.research.google.com](https://colab.research.google.com)
+2. Click **File → Open Notebook → GitHub**
+3. Paste this repo URL
+4. Click **Runtime → Run All**
+
+### Option 2 — Local Jupyter
+```bash
 git clone https://github.com/VanshRana1232/house-price-prediction.git
 cd house-price-prediction
-```
-
-2. Install dependencies
-
-```
 pip install -r requirements.txt
-```
-
-3. Open the notebook
-
-```
 jupyter notebook house_prediction.ipynb
 ```
 
-4. Run all cells to reproduce the results.
-
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
-house-price-prediction
+house-price-prediction/
 │
-├── house_prediction.ipynb
-├── README.md
-└── requirements.txt
+├── house_prediction.ipynb   # Main notebook
+├── requirements.txt         # Dependencies
+└── README.md
 ```
 
 ---
 
-## Future Improvements
+## 👤 Author
 
-* Add more models (Random Forest, Gradient Boosting)
-* Perform hyperparameter tuning
-* Build a web interface using Streamlit
-* Deploy the model
-
----
-
-## Author
-
-**Vansh Partap Singh**
-
-AI/ML student passionate about machine learning, data science, and building intelligent systems.
+**Vansh Partap Singh**  
+[GitHub](https://github.com/VanshRana1232)
+[Linkedin](https://www.linkedin.com/in/vansh-partap-singh-9069b7284/)
